@@ -50,6 +50,12 @@
                  (map max n1 n2)))])
     (for ([n (reverse d2)])
       (set! fnl (add fnl
-                     (lmult/mult-single (lmult/append-zeros cnt d1) n)))
+                     (lmult/mult-single [lmult/append-zeros cnt d1] n)))
       (set! cnt (+ cnt 1)))
     (list->num fnl)))
+
+(define (lfactorial n)
+  (let ([x 1])
+    (for ([i (in-range 1 (+ n 1))])
+      (set! x (lmult x i)))
+    x))
