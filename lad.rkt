@@ -11,7 +11,14 @@
     (let ([diff (- n1 n2)])
       (cond
         [(positive? diff) (values lst1 (prepend-zeros diff lst2))]
-        [(negative? diff) (values (prepend-zeros (- diff) lst1) lst2)]))))
+        [else (values (prepend-zeros (- diff) lst1) lst2)]))))
+
+(define (list->num lst)
+  (foldl
+   (lambda (val dig)
+     (+ (* dig 10) val))
+   0
+   lst))
 
 (define extract-digits
   (lambda (num [digits '()])
@@ -27,5 +34,5 @@
   (let ([n1s (extract-digits n1)]
         [n2s (extract-digits n2)])
     (set!-values (n1s n2s) (handle-lists n1s n2s))
-    (map (lambda (num1 num2) (max num1 num2))
-        n1s n2s)))
+    (list->num (map (lambda (num1 num2) (max num1 num2))
+                    n1s n2s))))
