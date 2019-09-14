@@ -1,4 +1,5 @@
 ;; lad - lunar (dismal) arithmetic repl thingy
+;; licensed under bsd 2 clause simplified license
 
 #lang racket
 
@@ -7,6 +8,10 @@
    (lambda (val dig) [+ (* dig 10) val])
    0
    lst))
+
+(define (between? a b n)
+  (and [>= n a]
+       [<= n b]))
 
 (define extract-digits
   (lambda (num [digits '()])
@@ -55,6 +60,8 @@
     (list->num fnl)))
 
 (define (lfactorial n)
+  (when (between? 1 9 n)
+    1)
   (let ([x 1])
     (for ([i (in-range 1 (+ n 1))])
       (set! x (lmult x i)))
