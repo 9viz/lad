@@ -1,4 +1,4 @@
-;; lad - lunar (dismal) arithmetic repl thingy
+;; lad - lunar (dismal) arithmetic repl
 ;; licensed under bsd 2 clause simplified license
 
 #lang racket
@@ -9,7 +9,7 @@
    0
    lst))
 
-(define (between? a b n)
+(define (between? n a b)
   (and [>= n a]
        [<= n b]))
 
@@ -43,7 +43,7 @@
   (append lst (make-list num-digits 0)))
 
 (define (lmult/mult-single ns n)
-  (map (lambda (d) (min d n)) ns))
+  (map (lambda (d) [min d n]) ns))
 
 (define (lmult n1 n2)
   (let ([cnt 0]
@@ -60,7 +60,7 @@
     (list->num fnl)))
 
 (define (lfactorial n)
-  (when (between? 1 9 n)
+  (when [between? n 1 9]
     1)
   (let ([x 1])
     (for ([i (in-range 1 (+ n 1))])
