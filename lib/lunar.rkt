@@ -13,7 +13,7 @@
         [fnl '()]
         [d1 (extract-digits n1)]
         [d2 (extract-digits n2)]
-        [add (lambda (n1 n2)
+        [add (λ (n1 n2)
                (let-values ([(n1 n2) (ladd/handle-nums-primitive n1 n2)])
                  (map max n1 n2)))])
     (for ([n (reverse d2)])
