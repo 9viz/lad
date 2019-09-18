@@ -6,4 +6,4 @@
   (append lst (make-list num-digits 0)))
 
 (define (lmult/mult-single ns n)
-  (map (lambda (d) [min d n]) ns))
+  (map (λ (d) [min d n]) ns))
