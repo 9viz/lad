@@ -23,9 +23,7 @@
    [(:or "+" "*" "!") (string->symbol lexeme)]
    ["(" 'OP]
    [")" 'CP]
-   [(:+ digit) (token-NUM (string->number lexeme))]
-   [(:: (:+ digit) #\. (:* digit)) (token-NUM (string->number lexeme))]))
-
+   [(:+ digit) (token-NUM (string->number lexeme))]))
 
 (define parse
   (parser
@@ -43,10 +41,8 @@
     (exp [(NUM) $1]
          [(exp + exp) (ladd $1 $3)]
          [(exp * exp) (lmult $1 $3)]
-         [(! exp) (lfactorial $2)]
+         [(exp !) (prec !) (lfactorial $1)]
          [(OP exp CP) $2]))))
 
 (define (leval expr)
   (parse (λ () (lex expr))))
-
-(leval (open-input-string "2! + 2"))
