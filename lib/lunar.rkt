@@ -2,7 +2,7 @@
 
 (require "util.rkt" "add.rkt" "mult.rkt")
 
-(provide lmult ladd lfactorial)
+(provide ladd lmult lfactorial lexpt)
 
 (define (ladd n1 n2)
   (let-values ([(d1 d2) (ladd/handle-nums n1 n2)])
@@ -29,3 +29,6 @@
     (for ([i (in-range 1 (+ n 1))])
       (set! x (lmult x i)))
     x))
+
+(define (lexpt b e)
+  b)

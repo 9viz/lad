@@ -42,7 +42,7 @@
     (exp [(NUM) $1]
          [(exp + exp) (ladd $1 $3)]
          [(exp * exp) (lmult $1 $3)]
-         [(exp ^ exp) ($1)]
+         [(exp ^ exp) (lexpt $1 $3)]
          [(exp !) (prec !) (lfactorial $1)]
          [(OP exp CP) $2]))))
 
