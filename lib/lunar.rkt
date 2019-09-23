@@ -31,4 +31,9 @@
     x))
 
 (define (lexpt b e)
-  b)
+  (when [between? b 1 9]
+    b)
+  (let ([p 1])
+    (for ([i (in-range 1 (+ e 1))])
+      (set! p (lmult p b)))
+    p))
