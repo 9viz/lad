@@ -1,35 +1,26 @@
 #lang racket/base
 
-(define (l+ . y)
-  (define (helper a b c d)
-    (cond
-      ((zero? b) (+ (* a d) c))
-      ((zero? a) (+ (* b d) c))
-      (else (helper
-             (quotient a 10)
-             (quotient b 10)
-             (+ c (* d
-                     (max (remainder a 10)
-                          (remainder b 10))))
-             (* 10 d)))))
-  (foldl (λ (s t)
-           (helper s t 0 1))
-         (car y)
-         (cdr y)))
+(provide l+ l*)
 
-(define (l* . y)
-  (define (helper a b c d)
-    (cond
-      ((zero? b) (+ (* a d) c))
-      ((zero? a) (+ (* b d) c))
-      (else (helper
-             (quotient a 10)
-             (quotient b 10)
-             (+ c (* d
-                     (min (remainder a 10)
-                          (remainder b 10))))
-             (* d 10)))))
+(define (lad/*helper* a b c d condition)
+  (cond
+    ((zero? b) (+ (* a d) c))
+    ((zero? a) (+ (* b d) c))
+    (else (lad/*helper*
+           (quotient a 10)
+           (quotient b 10)
+           (+ c (* d
+                   (condition (remainder a 10)
+                              (remainder b 10))))
+           (* 10 d)
+           condition))))
+
+(define (l+ . n)
   (foldl (λ (s t)
-           (helper s t 0 1))
-         (car y)
-         (cdr y)))
+           (lad/*helper* s t 0 1 max))
+         (car n) (cdr n)))
+
+(define (l* . n)
+  (foldl (λ (s t)
+           (lad/*helper* s t 0 1 min))
+         (car n) (cdr n)))
